@@ -86,20 +86,20 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 # Initializing the variables
 init = tf.global_variables_initializer()
 cvscores = []
-confusion_sum = [[0 for i in range(7)] for j in range(7)]
+confusion_sum = [[0 for i in range(6)] for j in range(6)]
 
 #data import
-x_bed, x_fall, x_pickup, x_run, x_sitdown, x_standup, x_walk, \
-y_bed, y_fall, y_pickup, y_run, y_sitdown, y_standup, y_walk = csv_import()
+x_bed, x_fall, x_pickup, x_run, x_standup, x_walk, \
+y_bed, y_fall, y_pickup, y_run, y_standup, y_walk = csv_import()
 
-print(" bed =",len(x_bed), " fall=", len(x_fall), " pickup =", len(x_pickup), " run=", len(x_run), " sitdown=", len(x_sitdown), " standup=", len(x_standup), " walk=", len(x_walk))
+print(" bed =",len(x_bed), " fall=", len(x_fall), " pickup =", len(x_pickup), " run=", len(x_run), " standup=", len(x_standup), " walk=", len(x_walk))
 
 #data shuffle
 x_bed, y_bed = shuffle(x_bed, y_bed, random_state=0)
 x_fall, y_fall = shuffle(x_fall, y_fall, random_state=0)
 x_pickup, y_pickup = shuffle(x_pickup, y_pickup, random_state=0)
 x_run, y_run = shuffle(x_run, y_run, random_state=0)
-x_sitdown, y_sitdown = shuffle(x_sitdown, y_sitdown, random_state=0)
+# x_sitdown, y_sitdown = shuffle(x_sitdown, y_sitdown, random_state=0)
 x_standup, y_standup = shuffle(x_standup, y_standup, random_state=0)
 x_walk, y_walk = shuffle(x_walk, y_walk, random_state=0)
 
@@ -118,35 +118,35 @@ with tf.Session() as sess:
         validation_acc = []
 
         #Roll the data
-        x_bed = np.roll(x_bed, int(len(x_bed) / kk), axis=0)
-        y_bed = np.roll(y_bed, int(len(y_bed) / kk), axis=0)
-        x_fall = np.roll(x_fall, int(len(x_fall) / kk), axis=0)
-        y_fall = np.roll(y_fall, int(len(y_fall) / kk), axis=0)
-        x_pickup = np.roll(x_pickup, int(len(x_pickup) / kk), axis=0)
-        y_pickup = np.roll(y_pickup, int(len(y_pickup) / kk), axis=0)
-        x_run = np.roll(x_run, int(len(x_run) / kk), axis=0)
-        y_run = np.roll(y_run, int(len(y_run) / kk), axis=0)
-        x_sitdown = np.roll(x_sitdown, int(len(x_sitdown) / kk), axis=0)
-        y_sitdown = np.roll(y_sitdown, int(len(y_sitdown) / kk), axis=0)
-        x_standup = np.roll(x_standup, int(len(x_standup) / kk), axis=0)
-        y_standup = np.roll(y_standup, int(len(y_standup) / kk), axis=0)
-        x_walk = np.roll(x_walk, int(len(x_walk) / kk), axis=0)
-        y_walk = np.roll(y_walk, int(len(y_walk) / kk), axis=0)
+        x_bed = np.roll(x_bed, int(len(x_bed) // kk), axis=0)
+        y_bed = np.roll(y_bed, int(len(y_bed) // kk), axis=0)
+        x_fall = np.roll(x_fall, int(len(x_fall) // kk), axis=0)
+        y_fall = np.roll(y_fall, int(len(y_fall) // kk), axis=0)
+        x_pickup = np.roll(x_pickup, int(len(x_pickup) // kk), axis=0)
+        y_pickup = np.roll(y_pickup, int(len(y_pickup) // kk), axis=0)
+        x_run = np.roll(x_run, int(len(x_run) // kk), axis=0)
+        y_run = np.roll(y_run, int(len(y_run) // kk), axis=0)
+        # x_sitdown = np.roll(x_sitdown, int(len(x_sitdown) // kk), axis=0)
+        # y_sitdown = np.roll(y_sitdown, int(len(y_sitdown) // kk), axis=0)
+        x_standup = np.roll(x_standup, int(len(x_standup) // kk), axis=0)
+        y_standup = np.roll(y_standup, int(len(y_standup) // kk), axis=0)
+        x_walk = np.roll(x_walk, int(len(x_walk) // kk), axis=0)
+        y_walk = np.roll(y_walk, int(len(y_walk) // kk), axis=0)
 
         #data separation
-        wifi_x_train = np.r_[x_bed[int(len(x_bed) / kk):], x_fall[int(len(x_fall) / kk):], x_pickup[int(len(x_pickup) / kk):], \
-                        x_run[int(len(x_run) / kk):], x_sitdown[int(len(x_sitdown) / kk):], x_standup[int(len(x_standup) / kk):], x_walk[int(len(x_walk) / kk):]]
+        wifi_x_train = np.r_[x_bed[int(len(x_bed) // kk):], x_fall[int(len(x_fall) // kk):], x_pickup[int(len(x_pickup) // kk):], \
+                        x_run[int(len(x_run) // kk):], x_standup[int(len(x_standup) // kk):], x_walk[int(len(x_walk) // kk):]]
 
-        wifi_y_train = np.r_[y_bed[int(len(y_bed) / kk):], y_fall[int(len(y_fall) / kk):], y_pickup[int(len(y_pickup) / kk):], \
-                        y_run[int(len(y_run) / kk):], y_sitdown[int(len(y_sitdown) / kk):], y_standup[int(len(y_standup) / kk):], y_walk[int(len(y_walk) / kk):]]
+        wifi_y_train = np.r_[y_bed[int(len(y_bed) // kk):], y_fall[int(len(y_fall) // kk):], y_pickup[int(len(y_pickup) // kk):], \
+                        y_run[int(len(y_run) // kk):], y_standup[int(len(y_standup) // kk):], y_walk[int(len(y_walk) // kk):]]
 
         wifi_y_train = wifi_y_train[:,1:]
 
-        wifi_x_validation = np.r_[x_bed[:int(len(x_bed) / kk)], x_fall[:int(len(x_fall) / kk)], x_pickup[:int(len(x_pickup) / kk)], \
-                        x_run[:int(len(x_run) / kk)], x_sitdown[:int(len(x_sitdown) / kk)], x_standup[:int(len(x_standup) / kk)], x_walk[:int(len(x_walk) / kk)]]
+        wifi_x_validation = np.r_[x_bed[:int(len(x_bed) // kk)], x_fall[:int(len(x_fall) // kk)], x_pickup[:int(len(x_pickup) // kk)], \
+                        x_run[:int(len(x_run) / kk)], x_standup[:int(len(x_standup) // kk)], x_walk[:int(len(x_walk) // kk)]]
 
-        wifi_y_validation = np.r_[y_bed[:int(len(y_bed) / kk)], y_fall[:int(len(y_fall) / kk)], y_pickup[:int(len(y_pickup) / kk)], \
-                        y_run[:int(len(y_run) / kk)], y_sitdown[:int(len(y_sitdown) / kk)], y_standup[:int(len(y_standup) / kk)], y_walk[:int(len(y_walk) / kk)]]
+        wifi_y_validation = np.r_[y_bed[:int(len(y_bed) // kk)], y_fall[:int(len(y_fall) // kk)], y_pickup[:int(len(y_pickup) // kk)], \
+                        y_run[:int(len(y_run) // kk)], y_standup[:int(len(y_standup) // kk)], y_walk[:int(len(y_walk) // kk)]]
 
         wifi_y_validation = wifi_y_validation[:,1:]
 

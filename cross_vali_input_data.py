@@ -54,7 +54,7 @@ def csv_import():
     y_dic = {}
     print("csv file importing...")
 
-    for i in ["bed", "fall", "pickup", "run", "sitdown", "standup", "walk"]:
+    for i in ["bed", "fall", "pickup", "run", "standup", "walk"]:
 #        xx = np.array([[ float(elm) for elm in v] for v in csv.reader(open("./input_files/xx_1000_60_" + str(i) + ".csv","r"))])
 #        yy = np.array([[ float(elm) for elm in v] for v in csv.reader(open("./input_files/yy_1000_60_" + str(i) + ".csv","r"))])
 
@@ -83,5 +83,5 @@ def csv_import():
 
         print(str(i), "finished...", "xx=", xx.shape, "yy=",  yy.shape)
 
-    return x_dic["bed"], x_dic["fall"], x_dic["pickup"], x_dic["run"], x_dic["sitdown"], x_dic["standup"], x_dic["walk"], \
-        y_dic["bed"], y_dic["fall"], y_dic["pickup"], y_dic["run"], y_dic["sitdown"], y_dic["standup"], y_dic["walk"]
+    return x_dic["bed"], x_dic["fall"], x_dic["pickup"], x_dic["run"], x_dic["standup"], x_dic["walk"], \
+        y_dic["bed"], y_dic["fall"], y_dic["pickup"], y_dic["run"], y_dic["standup"], y_dic["walk"]

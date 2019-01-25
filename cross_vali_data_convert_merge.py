@@ -70,22 +70,22 @@ def dataimport(path1, path2):
 				else:
 					noactivity += 1
 
-			if bed > window_size * threshold / 100:
-				y[k/slide_size,:] = np.array([0,1,0,0,0,0,0,0])
-			elif fall > window_size * threshold / 100:
-				y[k/slide_size,:] = np.array([0,0,1,0,0,0,0,0])
-			elif walk > window_size * threshold / 100:
-				y[k/slide_size,:] = np.array([0,0,0,1,0,0,0,0])
-			elif pickup > window_size * threshold / 100:
-				y[k/slide_size,:] = np.array([0,0,0,0,1,0,0,0])
-			elif run > window_size * threshold / 100:
-				y[k/slide_size,:] = np.array([0,0,0,0,0,1,0,0])
-			elif sitdown > window_size * threshold / 100:
-				y[k/slide_size,:] = np.array([0,0,0,0,0,0,1,0])
-			elif standup > window_size * threshold / 100:
-				y[k/slide_size,:] = np.array([0,0,0,0,0,0,0,1])
+			if bed > window_size * threshold // 100:
+				y[k//slide_size,:] = np.array([0,1,0,0,0,0,0,0])
+			elif fall > window_size * threshold // 100:
+				y[k//slide_size,:] = np.array([0,0,1,0,0,0,0,0])
+			elif walk > window_size * threshold // 100:
+				y[k//slide_size,:] = np.array([0,0,0,1,0,0,0,0])
+			elif pickup > window_size * threshold // 100:
+				y[k//slide_size,:] = np.array([0,0,0,0,1,0,0,0])
+			elif run > window_size * threshold // 100:
+				y[k//slide_size,:] = np.array([0,0,0,0,0,1,0,0])
+			elif sitdown > window_size * threshold // 100:
+				y[k//slide_size,:] = np.array([0,0,0,0,0,0,1,0])
+			elif standup > window_size * threshold // 100:
+				y[k//slide_size,:] = np.array([0,0,0,0,0,0,0,1])
 			else:
-				y[k/slide_size,:] = np.array([2,0,0,0,0,0,0,0])
+				y[k//slide_size,:] = np.array([2,0,0,0,0,0,0,0])
 			k += slide_size
 
 		yy = np.concatenate((yy, y),axis=0)
@@ -97,7 +97,7 @@ def dataimport(path1, path2):
 if not os.path.exists("input_files/"):
         os.makedirs("input_files/")
 
-for i, label in enumerate (["bed", "fall", "pickup", "run", "sitdown", "standup", "walk"]):
+for i, label in enumerate (["run"]):#(["bed","fall","pickup"]):#(["sitdown", "standup", "walk"]):
 	filepath1 = "./Dataset/input_*" + str(label) + "*.csv"
 	filepath2 = "./Dataset/annotation_*" + str(label) + "*.csv"
 	outputfilename1 = "./input_files/xx_" + str(window_size) + "_" + str(threshold) + "_" + label + ".csv"
